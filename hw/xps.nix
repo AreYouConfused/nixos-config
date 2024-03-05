@@ -21,7 +21,12 @@
   boot.kernelParams = [
     "mem_sleep_default=deep"
     "resume=/dev/disk/by-uuid/94f860f2-2b93-4cd4-ba5f-084d42e2761d"
+    "quiet"
+    "splash"
+    "loglevel=3"
   ];
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "breeze";
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/3108a225-614d-4062-a38b-d50f08240e20";
@@ -76,7 +81,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
+  services.xserver.videoDrivers = ["i915" "nvidia"]; # or "nvidiaLegacy470 etc.
 
   # Force S3 sleep mode. See README.wiki for details.
 
