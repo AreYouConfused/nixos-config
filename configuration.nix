@@ -192,6 +192,11 @@
   #   enableSSHSupport = true;
   # };
   programs.fish.enable = true;
+  environment.shellAliases = {
+    l = null;
+    ll = null;
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
