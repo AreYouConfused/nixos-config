@@ -69,6 +69,21 @@
 
   services.hardware.bolt.enable = true;
 
+  environment.systemPackages = with pkgs; [snapper snapper-gui];
+  services.snapper = {
+    configs = {
+      root = {
+        SUBVOLUME = "/";
+      };
+      home = {
+        SUBVOLUME = "/home";
+        ALLOW_USERS = ["still"];
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;
+      };
+    };
+  };
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
