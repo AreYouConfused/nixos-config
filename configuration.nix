@@ -182,6 +182,7 @@
     spotify
     tmux
     libsForQt5.sddm-kcm
+    tmux
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
