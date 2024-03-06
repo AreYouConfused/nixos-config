@@ -148,7 +148,7 @@
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqbE0zsXteREbTr1cLsX42cYqHMrhV6mCGfmTECGrS/ still@box"
-	 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9awjO2w2yGg/IOTS914T6go1PkbxPtMpGnSET/+HOr still@xps"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9awjO2w2yGg/IOTS914T6go1PkbxPtMpGnSET/+HOr still@xps"
     ];
   };
 
@@ -184,6 +184,9 @@
     tmux
     libsForQt5.sddm-kcm
     tmux
+    thunderbird
+    bitwarden
+    slack
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
