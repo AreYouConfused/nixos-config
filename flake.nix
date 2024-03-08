@@ -5,6 +5,9 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,40 +30,51 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
+    nixpkgs-unstable,
     home-manager,
     lanzaboote,
     ...
   } @ inputs: let
     inherit (self) outputs;
+    sharedConfig = hostname: nsystem:
+      nixpkgs.lib.nixosSystem {
+        system = nsystem;
+        specialArgs = {
+          lanzaboote = lanzaboote.nixosModules.lanzaboote;
+          inherit inputs outputs;
+          inherit hostname;
+        };
+        modules = [
+          ./configuration.nix
+          ./hw/${hostname}.nix
+
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                unstable = import nixpkgs-unstable {
+                  system = nsystem;
+                  config.allowUnfree = true;
+                };
+              })
+
+              (final: prev: {
+                stable = import nixpkgs-stable {
+                  system = nsystem;
+                  config.allowUnfree = true;
+                };
+              })
+            ];
+          }
+        ];
+      };
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       # FIXME replace with your hostname
-      nix-vm = nixpkgs.lib.nixosSystem {
-        # > Our main nixos configuration file <
-        modules = [
-          ./configuration.nix
-          ./hw/vm.nix
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-          hostname = "nix-vm";
-        };
-      };
-      xps = nixpkgs.lib.nixosSystem {
-        # > Our main nixos configuration file <
-        modules = [
-          ./configuration.nix
-          ./hw/xps.nix
-          lanzaboote.nixosModules.lanzaboote
-          ./hw/secboot.nix
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-          hostname = "xps";
-        };
-      };
+      xps = sharedConfig "xps" "x86_64-linux";
+      nix-vm = sharedConfig "nix-vm" "x86_64-linux";
     };
   };
 }

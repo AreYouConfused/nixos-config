@@ -10,6 +10,7 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ./secboot.nix
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc"];
