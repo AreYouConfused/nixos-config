@@ -106,9 +106,9 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  #services.xserver.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.defaultSession = "plasmawayland";
+  #services.xserver.displayManager.defaultSession = "plasmawayland";
 
   # Configure keymap in X11
   services.xserver = {
@@ -170,6 +170,7 @@
     gnupg
     stow
     libnotify
+    kitty
     nextcloud-client
     gcc
     lua
@@ -188,7 +189,16 @@
     bitwarden
     slack
     unstable.obs-studio
+    firefox
+    discord
+    unstable.vscode
   ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
@@ -197,7 +207,9 @@
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
-
+  fonts.packages = with pkgs; [
+    nerdfonts
+  ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

@@ -74,6 +74,7 @@
     nixosConfigurations = {
       # FIXME replace with your hostname
       xps = sharedConfig "xps" "x86_64-linux";
+      box = sharedConfig "box" "x86_64-linux";
       nix-vm = sharedConfig "nix-vm" "x86_64-linux";
     };
   };
