@@ -106,7 +106,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
+  #services.xserver.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.defaultSession = "plasmawayland";
 
@@ -139,6 +139,8 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
+  hardware.keyboard.qmk.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.still = {
@@ -188,6 +190,7 @@
     bitwarden
     slack
     unstable.obs-studio
+    pamixer
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -217,6 +220,7 @@
   };
 
   programs.partition-manager.enable = true;
+  programs.nix-ld.enable = true;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
