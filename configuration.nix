@@ -140,6 +140,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  hardware.keyboard.qmk.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.still = {
     isNormalUser = true;
@@ -192,6 +194,7 @@
     firefox
     discord
     unstable.vscode
+    pamixer
   ];
 
   programs.steam = {
@@ -229,6 +232,7 @@
   };
 
   programs.partition-manager.enable = true;
+  programs.nix-ld.enable = true;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
