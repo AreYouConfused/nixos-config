@@ -191,6 +191,7 @@
     slack
     unstable.obs-studio
     pamixer
+    mysql-workbench
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
