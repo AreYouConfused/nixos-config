@@ -195,6 +195,7 @@
     discord
     unstable.vscode
     pamixer
+    jumpapp
   ];
 
   programs.steam = {

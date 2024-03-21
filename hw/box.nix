@@ -16,7 +16,7 @@
   boot.initrd.kernelModules = ["dm-snapshot" "dm-raid1" "dm-raid0" "dm-cache" "dm_integrity" "dm-raid"];
   boot.kernelModules = ["kvm-amd" "dm-raid1" "dm-raid0" "dm-cache" "dm_integrity" "dm-raid"];
   boot.extraModulePackages = [];
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -24,7 +24,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/76792cd4-637d-4f73-9ed0-224e836b4b20";
     fsType = "btrfs";
-    options = ["subvol=root" "compress=zstd"];
+    options = ["subvol=nix-root" "compress=zstd"];
   };
 
   fileSystems."/home" = {
@@ -36,7 +36,7 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/76792cd4-637d-4f73-9ed0-224e836b4b20";
     fsType = "btrfs";
-    options = ["subvol=nix" "compress=zstd"];
+    options = ["subvol=nix" "compress=zstd" "noatime"];
   };
 
   fileSystems."/boot" = {
