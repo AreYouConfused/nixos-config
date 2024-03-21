@@ -6,11 +6,13 @@
   lib,
   pkgs,
   modulesPath,
+  hardware,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./secboot.nix
+    hardware.dell-xps-15-7590-nvidia
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc"];
@@ -104,31 +106,31 @@
   boot.loader.systemd-boot.configurationLimit = 10;
 
   # Enable firmware updates via `fwupdmgr`.
-  services.fwupd.enable = lib.mkDefault true;
+  #services.fwupd.enable = lib.mkDefault true;
 
   # This will save you money and possibly your life!
-  services.thermald.enable = lib.mkDefault true;
+  #services.thermald.enable = lib.mkDefault true;
 
-  hardware.nvidia = {
-    powerManagement = {
-      # Enable NVIDIA power management.
-      enable = false;
-
-      # Enable dynamic power management.
-      finegrained = false;
-    };
-
-    prime = {
-      offload = {
-        enable = lib.mkOverride 990 true;
-        enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable true; # Provides `nvidia-offload` command.
-      };
-
-      # Bus ID of the Intel GPU.
-      intelBusId = lib.mkDefault "PCI:0:2:0";
-
-      # Bus ID of the NVIDIA GPU.
-      nvidiaBusId = lib.mkDefault "PCI:1:0:0";
-    };
-  };
+  # hardware.nvidia = {
+  #   powerManagement = {
+  #     # Enable NVIDIA power management.
+  #     enable = false;
+  #
+  #     # Enable dynamic power management.
+  #     finegrained = false;
+  #   };
+  #
+  #   prime = {
+  #     offload = {
+  #       enable = lib.mkOverride 990 true;
+  #       enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable true; # Provides `nvidia-offload` command.
+  #     };
+  #
+  #     # Bus ID of the Intel GPU.
+  #     intelBusId = lib.mkDefault "PCI:0:2:0";
+  #
+  #     # Bus ID of the NVIDIA GPU.
+  #     nvidiaBusId = lib.mkDefault "PCI:1:0:0";
+  #   };
+  # };
 }

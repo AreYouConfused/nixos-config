@@ -195,6 +195,7 @@
     discord
     unstable.vscode
     pamixer
+    mysql-workbench
     jumpapp
   ];
 
