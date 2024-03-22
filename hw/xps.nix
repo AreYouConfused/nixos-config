@@ -2,6 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -12,7 +13,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./secboot.nix
-    hardware.dell-xps-15-7590-nvidia
+    inputs.hardware.nixosModules.dell-xps-15-7590-nvidia
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc"];
@@ -25,7 +26,7 @@
     "mem_sleep_default=deep"
     "resume=/dev/disk/by-uuid/94f860f2-2b93-4cd4-ba5f-084d42e2761d"
   ];
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/3108a225-614d-4062-a38b-d50f08240e20";

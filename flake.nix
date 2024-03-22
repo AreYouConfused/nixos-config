@@ -20,7 +20,7 @@
     };
 
     # TODO: Add any other flake you might need
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
@@ -34,7 +34,6 @@
     nixpkgs-unstable,
     home-manager,
     lanzaboote,
-    nixos-hardware,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -42,10 +41,8 @@
       nixpkgs.lib.nixosSystem {
         system = nsystem;
         specialArgs = {
-          lanzaboote = lanzaboote.nixosModules.lanzaboote;
           inherit inputs outputs;
           inherit hostname;
-          hardware = nixos-hardware.nixosModules;
         };
         modules = [
           ./configuration.nix
