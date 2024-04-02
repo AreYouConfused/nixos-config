@@ -106,9 +106,9 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.displayManager.sddm.wayland.enable = true;
+  services.xserver.displayManager.sddm.wayland.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  #services.xserver.displayManager.defaultSession = "plasmawayland";
+  services.xserver.displayManager.defaultSession = "plasmawayland";
 
   # Configure keymap in X11
   services.xserver = {
@@ -147,7 +147,7 @@
     isNormalUser = true;
     description = "John";
     extraGroups = ["networkmanager" "wheel"];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqbE0zsXteREbTr1cLsX42cYqHMrhV6mCGfmTECGrS/ still@box"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9awjO2w2yGg/IOTS914T6go1PkbxPtMpGnSET/+HOr still@xps"
@@ -225,6 +225,7 @@
   #   enableSSHSupport = true;
   # };
   programs.fish.enable = true;
+  programs.zsh.enable = true;
   environment.shellAliases = {
     l = null;
     ll = null;
